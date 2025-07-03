@@ -12,7 +12,7 @@ db.connect ((err)=> {
     console.log ("Error on DB connect:", err)
     return;
   } else
-    console.log ("Connected to School DB")
+    console.log ("Connected to qanswer DB")
 })
 
 export default db;

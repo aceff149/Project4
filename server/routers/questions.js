@@ -1,19 +1,34 @@
-import express from 'express'
-import db from '../dbConnection.js'
-const Router = express.Router()
+import express from "express";
+import db from "../dbConnection.js";
 
+const questionRouter = express.Router();
 
-Router.get ("/:categoryID", async(req, res)=> {
-  console.log ("Question Router, List Questions by categoryID ...")
-  try {
-    const categoryID = req.params.categoryID
-    const response = await db.query ("SELECT * from questions WHERE category_id = ?", [categoryID] )
-    console.log (response[0])
-    res.status(200).send(response[0]);
-  } catch (error) {
-    console.error("Login error:", error);
-    res.status(500).send("Server error while logging in");
-  }
-})
+questionRouter.get("/", (req, res) => {
+  db.query("SELECT * FROM Questions", (err, result) => {
+    if (err) {
+      console.error("Error in fetching questions", err);
+      res.status(500).json({ error: "Error in the query" });
+    } else {
+      res.json(result);
+    }
+  });
+});
 
-export default Router;
+questionRouter.post("/", (req, res) => {
+  const { user_id, title, body } = req.body;
+
+  db.query(
+    "INSERT INTO Questions (user_id, title, body) VALUES (?, ?, ?)",
+    [user_id, title, body],
+    (err, result) => {
+      if (err) {
+        console.error("Error in adding question", err);
+        res.status(500).json({ error: "Error adding question" });
+      } else {
+        res.status(201).json({ message: "Question added successfully" });
+      }
+    }
+  );
+});
+
+export default questionRouter;

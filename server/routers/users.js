@@ -1,32 +1,27 @@
-import express from 'express'
-import db from '../dbConnection.js'
-const Router = express.Router()
+import express from "express";
+import db from "../dbConnection.js";
 
-Router.post ("/", async(req, res)=> {
-  console.log ("Login Router ...")
-  const { userName, password } = req.body
-  try {
-    const [rows] = await db.query ("SELECT * from users WHERE userName = ? AND password = ? ", [userName, password])
-    if (rows.length == 0)
-      res.status(404).send("User not found")
-    else
-      res.status(200).send("Login successful")
-  } catch (error) {
-    console.error("Login error:", error);
-    res.status(500).send("Server error while logging in");
-  }
-})
+const userRouter = express.Router();
 
-Router.post ("/register/", async(req, res)=> {
-  console.log ("Router, register user ...")
-  const {userName, password} = req.body
-  try {
-    const [result] = await db.query ("INSERT INTO users (userName, password) VALUES (?, ?)", [userName, password]) 
-    res.status(201).send("Student added successfully");
-  } catch (error) {
-    console.error("Register user error:", error);
-    res.status(500).send("Server error while adding user");
-  }
-})
+userRouter.get("/", (req, res) => {
+  const { user_name, user_password } = req.query;
 
-export default Router;
+  db.query(
+    "SELECT * FROM users WHERE user_name = ? AND user_password = ?",
+    [user_name, user_password],
+    (err, result) => {
+      if (err) {
+        console.error("Error in fetching user:", err);
+        res.status(500).json({ error: "Error in the query" });
+      } else {
+        if (result.length > 0) {
+          res.json(result[0]);
+        } else {
+          res.status(404).json({ error: "User not found" });
+        }
+      }
+    }
+  );
+});
+
+export default userRouter;

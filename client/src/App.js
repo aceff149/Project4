@@ -1,33 +1,44 @@
-import React, {useState} from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import NavBar from "../src/components/NavBar" // Ensure this path is correct based on your project structure
-import HomePage from "./pages/HomePage"; // Ensure this path is correct based on your project structure
-import LoginPage from "./pages/LoginPage"; // Ensure this path is correct based on your project
-import RegisterPage from "./pages/RegisterPage"; // Ensure this path is correct based on your project structure
-import CategoryList from "../src/components/categoryList"; // Ensure this path is correct based on your project
-import QuestionList from "../src/components/questionList";
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Navigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import Navbar from './components/Navbar'; 
+import TodoList from './components/home';
+import Login from './components/login';
+import Contact from './components/contact';
+import CreateAccount from './components/createAccount'; // Ensure the import path is correct
+import QandA from "./components/QA"; // Import the QandA component
+import './App.css'; // Import your App.css for global styles
 
+const App = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [username, setUsername] = useState(''); // State to hold the username
 
-function App() {
+  // Function to handle user login
+  const handleLogin = (user) => {
+    setIsAuthenticated(true); // Set authentication state to true
+    setUsername(user); // Set the logged in user's username
+  };
+
+  const handleLogout = () => {
+    setIsAuthenticated(false); // Clear authentication state
+    setUsername(''); // Clear username on logout
+  };
+
   return (
-    <div>
-      <Router>
-        <NavBar />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/category" element={<CategoryList />} />
-          {/* Add more routes as needed */}
-          
-          {/* Redirect any unknown routes to the home page */}
-          <Route path="*" element={<Navigate to="/" />} />
-        </Routes>
-      </Router>
-    </div>
+    <Router>
+      <Navbar isAuthenticated={isAuthenticated} username={username} handleLogout={handleLogout} />
+      <Routes>
+        <Route path="/" element={isAuthenticated ? <Navigate to="/home" /> : <Login setIsAuthenticated={handleLogin} setUsername={setUsername} />} />
+        <Route path="/games" element={isAuthenticated ? <TodoList /> : <Navigate to="/" />} />
+        <Route path="/home" element={isAuthenticated ? <TodoList /> : <Navigate to="/" />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/create-account" element={<CreateAccount />} /> {/* Create Account page */}
+        <Route path="/qa" element={isAuthenticated ? <QandA /> : <Navigate to="/" />} /> {/* Q&A page */}
+        
+        {/* Optional - if you want a specific login route */}
+        <Route path="/login" element={isAuthenticated ? <Navigate to="/home" /> : <Login setIsAuthenticated={handleLogin} setUsername={setUsername} />} />
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;
