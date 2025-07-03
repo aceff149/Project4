@@ -1,13 +1,8 @@
 import React, { useEffect, useState, useCallback } from 'react';
 
-const GameCard = ({ game, rating, handleRating }) => {
+const MovieCard = ({ movie, rating, handleRating }) => {
   return (
     <div className="movie-item" style={{ margin: '20px', textAlign: 'center', width: '90%' }}>
-      <img 
-        src={movie.image} 
-        alt={movie.name} 
-        style={{ width: '100%', maxWidth: '400px', height: 'auto', margin: '0 auto' }} 
-      />
       <h3 style={{ fontSize: '24px' }}>{movie.name}</h3>
       <div>
         {Array.from({ length: 5 }, (_, idx) => (
@@ -47,7 +42,7 @@ const TodoList = () => {
         userRating: 0,
       }));
       setMovies(movieData);
-      setCurrentMovie(getRandomMovies(movieData));
+      setCurrentMovies(getRandomMovies(movieData));
     } catch (error) {
       console.error('Error fetching the movies:', error);
     }
@@ -69,7 +64,7 @@ const TodoList = () => {
     currentMovies.forEach((currentMovies, index) => {
       const ratingValue = ratings[index];
       const newMovie = {
-        text: currentMovie.name,
+        text: currentMovies.name,
         rated: ratingValue > 0,
         rating: ratingValue,
       };
@@ -80,11 +75,11 @@ const TodoList = () => {
         setUnratedMovies((prevUnratedMovies) => [...prevUnratedMovies, newMovie]);
       }
     });
-    fetchNewMovie();
+    fetchNewMovies();
   };
 
   const fetchNewMovies = () => {
-    const remainingMovies = movies.filter(movie => !currentMovies.some(current => current.id === movie.id));
+    const remainingMovies = movie.filter(movies => !currentMovies.some(current => current.id === movies.id));
     setCurrentMovies(getRandomMovies(remainingMovies));
     setRatings([0, 0]); 
   };
@@ -101,11 +96,11 @@ const TodoList = () => {
     setSearch(event.target.value);
   };
 
-  const filteredMovies = movies.filter(movie =>
+  const filteredMovies = movie.filter(movies =>
     movie.name.toLowerCase().includes(search.toLowerCase())
   );
 
-  const handleMovieSelection = (game) => {
+  const handleMovieSelection = (movie) => {
     setCurrentMovies([movie]);
     setSearch('');
   };

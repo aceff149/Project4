@@ -28,7 +28,7 @@ const App = () => {
       <Navbar isAuthenticated={isAuthenticated} username={username} handleLogout={handleLogout} />
       <Routes>
         <Route path="/" element={isAuthenticated ? <Navigate to="/home" /> : <Login setIsAuthenticated={handleLogin} setUsername={setUsername} />} />
-        <Route path="/games" element={isAuthenticated ? <TodoList /> : <Navigate to="/" />} />
+        <Route path="/movies" element={isAuthenticated ? <TodoList /> : <Navigate to="/" />} />
         <Route path="/home" element={isAuthenticated ? <TodoList /> : <Navigate to="/" />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/create-account" element={<CreateAccount />} /> {/* Create Account page */}

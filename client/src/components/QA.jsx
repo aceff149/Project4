@@ -11,7 +11,7 @@ const QandA = () => {
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/api/questions');
+        const response = await axios.get('http://localhost:3000/api/questions');
         setQaData(response.data);
       } catch (error) {
         setError('Could not fetch questions: ' + error.message);
@@ -23,7 +23,7 @@ const QandA = () => {
 
   const fetchAnswers = async (questionId) => {
     try {
-      const response = await axios.get(`http://localhost:3001/api/answers/${questionId}`);
+      const response = await axios.get(`http://localhost:3000/api/answers/${questionId}`);
       setAnswers(prevAnswers => ({ ...prevAnswers, [questionId]: response.data }));
     } catch (error) {
       setError('Could not fetch answers: ' + error.message);
