@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar'; 
-import TodoList from './components/home';
+import TodoList from './components/Home';
 import Login from './components/login';
 import Contact from './components/contact';
 import CreateAccount from './components/createAccount'; // Ensure the import path is correct

@@ -1,12 +1,12 @@
 import express from "express";
 import cors from "cors";
-import dotenv from "dotenv";
-import userRouter from "./routers/users";
-import questionRouter from "./routers/questions";
-import answerRouter from "./routers/answer";
+//import dotenv from "dotenv";
+import userRouter from "./routers/users.js";
+import questionRouter from "./routers/questions.js";
+import answerRouter from "./routers/answer.js";
 import db from "./dbConnection.js";
 
-dotenv.config();
+//dotenv.config();
 
 const app = express();
 
@@ -48,7 +48,7 @@ app.use((err, req, res, next) => {
   res.status(500).send("Something went wrong!");
 });
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Login = ({ setIsAuthenticated, setUsername }) => {
-    const [username, setUsernameInput] = useState('');
-    const [password, setPassword] = useState('');
+    const [user_name, setUsernameInput] = useState('');
+    const [user_password, setPassword] = useState('');
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
@@ -14,12 +14,12 @@ const Login = ({ setIsAuthenticated, setUsername }) => {
         setError(null);
 
         try {
-            const response = await fetch('http://localhost:3000/api/login', {
+            const response = await fetch('http://localhost:4000/api/users/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ username, password }),
+                body: JSON.stringify({ user_name, user_password }),
             });
 
             console.log (response)
@@ -33,13 +33,13 @@ const Login = ({ setIsAuthenticated, setUsername }) => {
             }
 
             const data = await response.json();
+            console.log (data[0].user_name)
+            if (data[0].user_name) {
 
-            // Check if the auth flag is present
-            if (data.auth) {
-                localStorage.setItem('token', data.token);
-                setIsAuthenticated(true);
-                setUsername(username);
-                navigate('/dashboard'); 
+                console.log (data[0])
+                setUsername(data[0].user_name);
+                setIsAuthenticated (true)
+                navigate('/home'); 
             } else {
                 setError('Invalid username or password.');
             }
@@ -66,16 +66,18 @@ const Login = ({ setIsAuthenticated, setUsername }) => {
             <form onSubmit={handleLogin} style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <input
                     type="text"
+                    name="user_name"
                     placeholder="Username"
-                    value={username}
+                    value={user_name}
                     onChange={(e) => setUsernameInput(e.target.value)}
                     required
                     style={{ marginBottom: '15px', padding: '10px', borderRadius: '5px' }}
                 />
                 <input
                     type="password"
+                    name="user_password"
                     placeholder="Password"
-                    value={password}
+                    value={user_password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
                     style={{ marginBottom: '15px', padding: '10px', borderRadius: '5px' }}
