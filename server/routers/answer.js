@@ -1,49 +1,57 @@
 import express from "express";
-import db from "../dbConnection.js";
+import cors from "cors";
+// import dotenv from "dotenv"; // Uncomment if using .env
+import userRouter from "./routers/users.js";
+import questionRouter from "./routers/questions.js";
+import answerRouter from "./routers/answer.js";
+import db from "./dbConnection.js";
 
-const answerRouter = express.Router();
+// dotenv.config(); // Uncomment if you use a .env file
 
-answerRouter.get("/", (req, res) => {
-  const { question_id } = req.query;
+const app = express();
 
-  db.query(
-    `SELECT Answers.*, users.user_name 
-     FROM Answers 
-     INNER JOIN users ON Answers.user_id = users.user_id
-     WHERE Answers.question_id = ?`,
-    [question_id],
-    (err, result) => {
-      if (err) {
-        console.error("Error in fetching answers", err);
-        res.status(500).json({ error: "Error in the query" });
-      } else {
-        res.json(result);
-      }
-    }
-  );
+app.use(cors());
+app.use(express.json());
+
+// Register routers
+app.use("/api/users", userRouter);
+app.use("/api/questions", questionRouter);
+app.use("/api/answers", answerRouter);
+
+// Root endpoint
+app.get("/", (req, res) => {
+  res.send("Welcome to the QAnswer Forum API!");
 });
 
-answerRouter.post("/", (req, res) => {
-  const { question_id, user_id, body } = req.body;
+// ❗ REMOVE this duplicate route if it's already in `./routers/users.js`
+app.post("/api/users", async (req, res) => {
+  const { user_name, user_email, user_password } = req.body;
 
-  if (!question_id || !user_id || !body) {
-    return res
-      .status(400)
-      .json({ error: "question_id, user_id, and body are required" });
+  if (!user_name || !user_email || !user_password) {
+    return res.status(400).json({ error: "All fields are required" });
   }
 
-  db.query(
-    "INSERT INTO Answers (question_id, user_id, body) VALUES (?, ?, ?)",
-    [question_id, user_id, body],
-    (err, result) => {
-      if (err) {
-        console.error("Error in adding answer", err);
-        res.status(500).json({ error: "Error adding answer" });
-      } else {
-        res.status(201).json({ message: "Answer added successfully" });
-      }
-    }
-  );
+  try {
+    const [result] = await db.execute(
+      "INSERT INTO users (user_name, user_email, user_password) VALUES (?, ?, ?)",
+      [user_name, user_email, user_password]
+    );
+
+    res.status(201).json({ success: true, userId: result.insertId });
+  } catch (error) {
+    console.error("Database error:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 });
 
-export default answerRouter;
+// Generic error handler
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send("Something went wrong!");
+});
+
+// Port
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server running at http://localhost:${PORT}/`);
+});

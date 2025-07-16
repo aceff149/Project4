@@ -65,6 +65,6 @@ body {
 }
 
 .carousel .slide img {
-  height: 400px;
-  object-fit: cover;
+  height: fill;
+  object-fit: fill;
 }
