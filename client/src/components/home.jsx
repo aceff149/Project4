@@ -1,13 +1,38 @@
-import React, { useEffect, useState, useCallback } from 'react';
+// Home.jsx
+import React from 'react';
+import { Carousel } from 'react-responsive-carousel';
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // required CSS
 
-
-export default function Home() {
+const Home = () => {
   return (
     <div>
-      <h1>Home Page</h1>
+      <h1>Welcome to AECreations!</h1>
+
+      <Carousel
+        showThumbs={false}
+        autoPlay
+        infiniteLoop
+        interval={3000}
+        showStatus={false}
+      >
+        <div>
+          <img src="/assets/images/banner1.jpg" alt="Banner 1" />
+          <p className="legend">Handmade Jewelry</p>
+        </div>
+        <div>
+          <img src="/assets/images/banner2.jpg" alt="Banner 2" />
+          <p className="legend">Unique Art Prints</p>
+        </div>
+        <div>
+          <img src="/assets/images/banner3.jpg" alt="Banner 3" />
+          <p className="legend">Home Decor</p>
+        </div>
+      </Carousel>
     </div>
-  )
-}
+  );
+};
+
+export default Home;
 
 // const MovieCard = ({ movie, rating, handleRating }) => {
 //   return (

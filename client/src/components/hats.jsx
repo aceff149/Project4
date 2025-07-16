@@ -41,7 +41,7 @@ const QandA = () => {
 
     try {
       await axios.post(
-        'http://localhost:3001/api/answers',
+        'http://localhost:3000/api/answers',
         { answer_text: answerText, question_id: selectedQuestionId },
         { headers: { 'x-access-token': token } }
       );
@@ -59,7 +59,7 @@ const QandA = () => {
   const handleDeleteAnswer = async (answerId, questionId) => {
     const token = localStorage.getItem('token');
     try {
-      await axios.delete(`http://localhost:3001/api/answers/${answerId}`, {
+      await axios.delete(`http://localhost:3000/api/answers/${answerId}`, {
         headers: { 'x-access-token': token }
       });
       fetchAnswers(questionId); // Refresh answers after deletion

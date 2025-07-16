@@ -81,13 +81,13 @@ const Navbar = ({ isAuthenticated, username, handleLogout }) => {
                         <Link
                             style={{
                                 ...linkStyle,
-                                ...(hoveredLink === 'qanda' ? { color: '#27ae60', transform: 'translateY(-2px)' } : {})
+                                ...(hoveredLink === 'hats' ? { color: '#27ae60', transform: 'translateY(-2px)' } : {})
                             }} 
                             to="/qanda" 
-                            onMouseEnter={() => setHoveredLink('qanda')} 
+                            onMouseEnter={() => setHoveredLink('hats')} 
                             onMouseLeave={() => setHoveredLink(null)}
                         >
-                            Q&A
+                            Hats
                         </Link>
                         <span style={{ color: '#ecf0f1', margin: '0 10px' }}>
                             Welcome, {username}!
