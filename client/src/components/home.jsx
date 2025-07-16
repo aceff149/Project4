@@ -16,15 +16,15 @@ const Home = () => {
         showStatus={false}
       >
         <div>
-          <img src= "/arianna.jpg" alt="Always Cold" />
+          <img src= "./images/arianna.jpg" alt="Always Cold" />
           <p className="legend">Custom Hats</p>
         </div>
         <div>
-          <img src="/Wedding.jpg" alt="Party Favors" />
+          <img src="./images/Wedding.jpg" alt="Party Favors" />
           <p className="legend">Unique Wedding Gifts</p>
         </div>
         <div>
-          <img src="/chesney.jpg" alt="Company Logos" />
+          <img src="./images/chesney.jpg" alt="Company Logos" />
           <p className="legend">Company Logo Hats</p>
         </div>
       </Carousel>
