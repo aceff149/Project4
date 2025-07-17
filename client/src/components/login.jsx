@@ -14,7 +14,7 @@ const Login = ({ setIsAuthenticated, setUsername }) => {
         setError(null);
 
         try {
-            const response = await fetch('http://localhost:3000/api/users/', {
+            const response = await fetch('http://localhost:4000/api/users/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -33,13 +33,12 @@ const Login = ({ setIsAuthenticated, setUsername }) => {
             }
 
             const data = await response.json();
-            console.log (data[0].user_name)
-            if (data[0].user_name) {
-
-                console.log (data[0])
-                setUsername(data[0].user_name);
+            if (data.success==true) {
+                console.log (data)
+                setUsername(data.user_name);
+                console.log (data.user_name)
                 setIsAuthenticated (true)
-                navigate('/home'); 
+                //navigate('/home'); 
             } else {
                 setError('Invalid username or password.');
             }

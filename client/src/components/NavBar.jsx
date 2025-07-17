@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const Navbar = ({ isAuthenticated, username, handleLogout }) => {
     const location = useLocation();
+    console.log ("Hello", username)
     const navigate = useNavigate(); // Use useNavigate for navigation
     const isLoginPage = location.pathname === '/login';
 

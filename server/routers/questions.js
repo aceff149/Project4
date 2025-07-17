@@ -3,3 +3,5 @@ import db from "../dbConnection.js";
 
 const questionRouter = express.Router();
 
+export default questionRouter;
+
