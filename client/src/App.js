@@ -5,8 +5,9 @@ import TodoList from './components/home';
 import Login from './components/login';
 import Contact from './components/contact';
 import CreateAccount from './components/createAccount'; // Ensure the import path is correct
-import Hats from "./components/hats"; // Import the QandA component
+import Hats from "./components/hats"; // Import the Listing component
 import './App.css'; // Import your App.css for global styles
+import ListingPage from './components/hats';
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -37,7 +38,13 @@ const App = () => {
         <Route path="/login" element={isAuthenticated ? <Navigate to="/home" /> : <Login setIsAuthenticated={handleLogin} setUsername={setUsername} />} />
       </Routes>
     </Router>
+
   );
+      <div className="App">
+      <ListingPage />
+    </div>
 };
+
+
 
 export default App;

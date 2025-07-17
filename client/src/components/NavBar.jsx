@@ -84,14 +84,14 @@ const Navbar = ({ isAuthenticated, username, handleLogout }) => {
                                 ...linkStyle,
                                 ...(hoveredLink === 'hats' ? { color: '#27ae60', transform: 'translateY(-2px)' } : {})
                             }} 
-                            to="/qanda" 
+                            to="/hats" 
                             onMouseEnter={() => setHoveredLink('hats')} 
                             onMouseLeave={() => setHoveredLink(null)}
                         >
                             Hats
                         </Link>
                         <span style={{ color: '#ecf0f1', margin: '0 10px' }}>
-                            Welcome, {username}!
+                            Welcome {username}!
                         </span>
                         <button 
                             style={{
