@@ -3,6 +3,7 @@ import cors from "cors";
 import userRouter from "./routers/users.js";
 import questionRouter from "./routers/questions.js";
 import answerRouter from "./routers/answer.js";
+import hatsRouter from "./routers/hats.js"
 import db from "./dbConnection.js";
 // import dotenv from "dotenv";
 // dotenv.config();
@@ -17,6 +18,7 @@ app.use(express.json());
 app.use("/api/users", userRouter);
 app.use("/api/questions", questionRouter);
 app.use("/api/answers", answerRouter);
+app.use("/api/hats", hatsRouter);
 
 // Root Route
 app.get("/", (req, res) => {

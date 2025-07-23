@@ -42,6 +42,7 @@ const App = () => {
   );
       <div className="App">
       <ListingPage />
+      <hats />
     </div>
 };
 
