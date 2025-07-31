@@ -4,7 +4,7 @@ import axios from 'axios'
 
 // const listings = [
 //   {
-//     id: 1,
+//     id: 0  ,
 //     title: 'Always Cold',
 //     image: "./images/alwayscold.jpg"
 //   },
@@ -58,7 +58,7 @@ import axios from 'axios'
 
 
 
-const ListingPage = () => {
+const HatsPage = () => {
 
   const [listings, setListings] = useState([])
 
@@ -102,5 +102,5 @@ const ListingPage = () => {
   );
 };
 
-export default ListingPage;
+export default HatsPage;
 

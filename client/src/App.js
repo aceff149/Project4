@@ -5,9 +5,9 @@ import TodoList from './components/home';
 import Login from './components/login';
 import Contact from './components/contact';
 import CreateAccount from './components/createAccount'; // Ensure the import path is correct
-import Hats from "./components/hats"; // Import the Listing component
+import Hats from "./components/Hats"; // Import the Listing component
 import './App.css'; // Import your App.css for global styles
-import ListingPage from './components/hats';
+import ListingPage from './components/Hats';
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);

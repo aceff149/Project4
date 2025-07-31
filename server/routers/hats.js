@@ -7,11 +7,11 @@ const hatsRouter = express.Router();
 Router.get ('/',async (req,res)=> {
   console.log ("asdasdasdsa")
   try {
-    const [result] = await db.query("SELECT * FROM hats")
+    const [result] = await db.query("SELECT * FROM Hats")
     res.status(200).json(result)
   } catch (err) {
-    console.log("Error retrieving students:", err);
-    res.status(500).send("Server error while retrieving students");
+    console.log("Error retrieving Hats:", err);
+    res.status(500).send("Server error while retrieving hats");
   }
 })
 export default hatsRouter;
