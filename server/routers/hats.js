@@ -3,7 +3,7 @@ import db from "../dbConnection.js";
 
 const hatsRouter = express.Router();
 
-// GET all hats: http://localhost:4000/hats/
+GET hats: http://localhost:4000/hats/
 Router.get ('/',async (req,res)=> {
   console.log ("asdasdasdsa")
   try {
