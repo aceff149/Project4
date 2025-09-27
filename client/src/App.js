@@ -8,6 +8,8 @@ import CreateAccount from './components/createAccount'; // Ensure the import pat
 import Hats from "./components/Hats"; // Import the Listing component
 import './App.css'; // Import your App.css for global styles
 import ListingPage from './components/Hats';
+import DashboardPage from './components/dashboard';
+import Questions from './components/questions'
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -32,8 +34,9 @@ const App = () => {
         <Route path="/home" element={isAuthenticated ? <TodoList /> : <Navigate to="/" />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/create-account" element={<CreateAccount />} /> {/* Create Account page */}
-        <Route path="/hats" element={isAuthenticated ? <Hats /> : <Navigate to="/" />} /> {/* Hats page */}
-        
+        <Route path="/hats" element={isAuthenticated ? <DashboardPage /> : <Navigate to="/" />} /> {/* Hats page */}
+        <Route path="/hats/*" element={<Questions/>}/>
+        <Route path="/hats/:id" element={<Questions/>}/>
         {/* Optional - if you want a specific login route */}
         <Route path="/login" element={isAuthenticated ? <Navigate to="/home" /> : <Login setIsAuthenticated={handleLogin} setUsername={setUsername} />} />
       </Routes>
@@ -41,7 +44,7 @@ const App = () => {
 
   );
       <div className="App">
-      <ListingPage />
+      <DashboardPage />
       <hats />
     </div>
 };

@@ -1,6 +1,7 @@
 import React from 'react';
 import  {useEffect, useState} from 'react';
 import axios from 'axios'
+import { Link } from 'react-router-dom';
 
 // const listings = [
 //   {
@@ -66,13 +67,11 @@ const HatsPage = () => {
   useEffect(() => {
     async function fetchHats () {
       console.log ( "Fetching hats from db ...")
-      const response = await axios.get ('http://localhost:4000/hats/')
+      const response = await axios.get ('http://localhost:4000/api/hats/')
       setListings (response.data)
     }  
     fetchHats();
   }, [])
-
-
 
   return (
     <div style={{ padding: '20px' }}>
@@ -91,9 +90,13 @@ const HatsPage = () => {
             boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
             backgroundColor: '#fff'
           }}>
-            <img src={listing.image} alt={listing.title} style={{ width: '100%', height: '200px', objectFit: 'cover' }} />
+            {/* <img src={listing.image} alt={listing.title} style={{ width: '100%', height: '200px', objectFit: 'cover' }} /> */}
             <div style={{ padding: '15px' }}>
-              <h3>{listing.title}</h3>
+              <h3>
+                <Link to={`/hats/${listing.id}`}>
+                {listing.title}
+                </Link>
+              </h3>
             </div>
           </div>
         ))}
