@@ -17,6 +17,7 @@ const App = () => {
 
   // Function to handle user login
   const handleLogin = (user) => {
+    console.log (`handling login for ${user}`)
     setIsAuthenticated(true); // Set authentication state to true
     setUsername(user); // Set the logged in user's username
   };
